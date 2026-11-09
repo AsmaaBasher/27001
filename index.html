@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mindware | Secure ERP Infrastructure Lab</title>
+<meta name="description" content="Offline interactive ERP network security proof-of-concept (simulated).">
+<link rel="icon" href="assets/img/mindware-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ============ Icon sprite (inline, offline) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="mwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#2f7bff"/></linearGradient>
+  </defs>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></symbol>
+  <symbol id="i-topo" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="5" rx="1"/><rect x="16" y="17" width="6" height="5" rx="1"/><path d="M12 7v5M5 17v-3h14v3"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24"><path d="M3 7h13l-3-3M21 17H8l3 3"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M13 6l-6 6 6 6M19 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-lab" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></symbol>
+  <symbol id="i-firewall" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M3 15h18M9 4v5M15 9v6M9 15v5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-iso" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3M8.5 11l1.5 1.5 3-3M8.5 16.5h7"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-.6-10A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></symbol>
+  <symbol id="i-admin" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10.5" r="2.5"/></symbol>
+  <symbol id="i-siem" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol>
+  <symbol id="i-backup" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10h14V9M10 13h4"/></symbol>
+  <symbol id="i-ips" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5M8.5 11h5"/></symbol>
+  <symbol id="i-waf" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8 11h8M8 14h8M12 8v9"/></symbol>
+  <symbol id="i-proxy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+  <symbol id="i-fs" viewBox="0 0 24 24"><path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5"/><rect x="8" y="8" width="8" height="8" rx="1"/></symbol>
+  <symbol id="i-notes" viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z"/><path d="M14 3v5h5M8.5 12h7M8.5 16h7"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 20h16"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  <symbol id="i-zin" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5M8 11h6M11 8v6"/></symbol>
+  <symbol id="i-zout" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5M8 11h6"/></symbol>
+  <symbol id="i-fit" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14l-3-3M20 16H6l3 3"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="13" rx="5"/><path d="M12 7V4M9 4l1.5 2M15 4l-1.5 2M3 12h4M17 12h4M4 18l3-2M20 18l-3-2M4 7l3 2M20 7l-3 2"/></symbol>
+</svg>
+
+<div class="app">
+  <!-- ============ Sidebar ============ -->
+  <aside class="sidebar" aria-label="التنقل">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+        <rect x="2" y="2" width="60" height="60" rx="14" fill="#0b1d40" stroke="url(#mwg)" stroke-width="2"/>
+        <path d="M14 46V20l9 0 9 13 9-13 9 0v26h-8V32l-10 14-10-14v14z" fill="url(#mwg)"/>
+      </svg>
+      <div class="bt"><b>Mindware</b><span>IT &amp; Information Security</span></div>
+    </div>
+    <ul class="nav" id="nav"></ul>
+    <div class="side-foot">
+      <button class="btn sm ghost" id="btnCollapse" title="طي القائمة (P)"><svg class="i"><use href="#i-menu"/></svg><span class="lbl">طي القائمة</span></button>
+    </div>
+  </aside>
+
+  <!-- ============ Main ============ -->
+  <div class="main">
+    <header class="topbar">
+      <div class="ttl"><h1 id="scrTitle">—</h1><small id="scrSub">—</small></div>
+      <div class="spacer"></div>
+      <!-- <span class="sim-badge" title="كل البيانات في هذا التطبيق محاكاة لأغراض العرض"><svg class="i"><use href="#i-bolt"/></svg>بيئة محاكاة — بيانات توضيحية</span> -->
+      <div class="iso-badge"><b>ISO/IEC 27001:2022</b></div>
+      <div class="timer" id="timer" title="مؤقت العرض: ضغطة = تشغيل/إيقاف، ضغطتين = إعادة (T)"><svg class="i"><use href="#i-clock"/></svg><span id="timerTxt">15:00</span></div>
+      <button class="btn icon ghost" id="btnNotes" title="ملاحظات المقدم (N)"><svg class="i"><use href="#i-notes"/></svg></button>
+      <button class="btn icon ghost" id="btnHelp" title="اختصارات لوحة المفاتيح (?)"><svg class="i"><use href="#i-help"/></svg></button>
+      <button class="btn primary" id="btnFs" title="وضع العرض الكامل (F)"><svg class="i"><use href="#i-fs"/></svg><span>عرض كامل</span></button>
+    </header>
+
+    <main class="screens" id="screens">
+      <section class="screen" id="s1" data-n="1"></section>
+      <section class="screen" id="s2" data-n="2"></section>
+      <section class="screen" id="s3" data-n="3"></section>
+      <section class="screen" id="s4" data-n="4"></section>
+      <section class="screen" id="s5" data-n="5"></section>
+      <section class="screen" id="s6" data-n="6"></section>
+    </main>
+
+    <footer class="bottombar">
+      <button class="btn sm" id="btnPrev" title="السابق (↑ / PageUp)"><svg class="i"><use href="#i-chev-r"/></svg>السابق</button>
+      <span class="pageno" id="pageNo">1 / 6</span>
+      <div class="progress"><i id="progBar"></i></div>
+      <span class="dim" style="font-size:.8rem">Mindware </span>
+      <button class="btn sm primary" id="btnNext" title="التالي (↓ / PageDown)">التالي<svg class="i"><use href="#i-chev-l"/></svg></button>
+    </footer>
+  </div>
+</div>
+
+<!-- ============ Lightbox ============ -->
+<div class="overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="عرض الصورة">
+  <div class="lb-bar">
+    <span class="t" id="lbTitle"></span>
+    <button class="btn sm" id="lbOut" title="تصغير (-)"><svg class="i"><use href="#i-zout"/></svg></button>
+    <span class="pageno" id="lbZoom">100%</span>
+    <button class="btn sm" id="lbIn" title="تكبير (+)"><svg class="i"><use href="#i-zin"/></svg></button>
+    <button class="btn sm" id="lbFit" title="ملاءمة الشاشة (0)"><svg class="i"><use href="#i-fit"/></svg>ملاءمة</button>
+    <button class="btn sm" id="lbOne" title="الحجم الأصلي (1)">1:1</button>
+    <button class="btn sm danger" id="lbClose" title="إغلاق (Esc)"><svg class="i"><use href="#i-close"/></svg>إغلاق</button>
+  </div>
+  <div class="lb-stage" id="lbStage"><img id="lbImg" alt=""></div>
+</div>
+
+<!-- ============ Help ============ -->
+<div class="overlay" id="help" role="dialog" aria-modal="true">
+  <div class="card modal">
+    <div class="head-row"><h3><svg class="i"><use href="#i-help"/></svg>اختصارات لوحة المفاتيح <span class="en">Keyboard shortcuts</span></h3>
+      <button class="btn sm" data-close="help"><svg class="i"><use href="#i-close"/></svg></button></div>
+    <div class="keys">
+      <span><kbd>↓</kbd> <kbd>PageDown</kbd> <kbd>←</kbd></span><span>الشاشة التالية</span>
+      <span><kbd>↑</kbd> <kbd>PageUp</kbd> <kbd>→</kbd></span><span>الشاشة السابقة</span>
+      <span><kbd>Home</kbd> / <kbd>End</kbd></span><span>أول / آخر شاشة</span>
+      <span><kbd>1</kbd> … <kbd>6</kbd></span><span>انتقال مباشر لشاشة</span>
+      <span><kbd>F</kbd></span><span>وضع العرض الكامل (Full-screen)</span>
+      <span><kbd>P</kbd></span><span>طي / إظهار القائمة الجانبية</span>
+      <span><kbd>N</kbd></span><span>ملاحظات المقدم</span>
+      <span><kbd>T</kbd></span><span>تشغيل / إيقاف مؤقت العرض (15 دقيقة)</span>
+      <span><kbd>Space</kbd></span><span>شاشة المحاكاة: تشغيل / إيقاف مؤقت</span>
+      <span><kbd>S</kbd></span><span>شاشة المحاكاة: الخطوة التالية</span>
+      <span><kbd>R</kbd></span><span>شاشة المحاكاة: إعادة الضبط</span>
+      <span><kbd>Esc</kbd></span><span>إغلاق النوافذ</span>
+      <span><kbd>?</kbd></span><span>هذه القائمة</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Presenter notes ============ -->
+<div class="card notes" id="notes">
+  <div class="head-row"><h3><svg class="i"><use href="#i-notes"/></svg>ملاحظات المقدم</h3><button class="btn sm" id="notesClose"><svg class="i"><use href="#i-close"/></svg></button></div>
+  <div id="notesBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/engine.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/screens-a.js"></script>
+<script src="assets/js/screens-b.js"></script>
+<script src="assets/js/screens-c.js"></script>
+</body>
+</html>
